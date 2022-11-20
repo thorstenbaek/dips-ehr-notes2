@@ -1,6 +1,8 @@
 <script>
+    import { onMount } from 'svelte';
     import { openEHR } from '../openehrStore.ts';  
-    import {marked} from 'marked';   
+    import { documents } from '../documentStore.ts';
+    import { marked } from 'marked';   
     import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();   
@@ -45,13 +47,17 @@
         var date = new Date(d);
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
+
+    onMount(async () => {
+        documents.set(await getDocuments());
+    });
 </script>
 
-{#await getDocuments()}
-    Loading documents.default..
-{:then documents}       
+{#if !$documents}
+    Loading documents...
+{:else}       
 
-    {#each documents as document}
+    {#each $documents as document}
         <div class="page">
             <h1>
                 Epikrise 
@@ -75,7 +81,7 @@
                 </a> -->
         </div>   
     {/each}
-{/await}
+{/if}
 
 <style>
     .page {

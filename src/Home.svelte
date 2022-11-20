@@ -2,24 +2,15 @@
     import {openEHR} from "./openehrStore.ts";
     import List from "./lib/List.svelte";
     import Workspace from "./lib/Workspace.svelte";
-
-    export let currentDocument;
-
-    function SelectDocument(event) {
-        console.log(event.detail);
-        currentDocument = event.detail.document;
-    }
 </script>
-
-
 
 {#if $openEHR}    
 <div>
     <div>
-        <Workspace document={currentDocument}/>
+        <Workspace />
     </div>
     <div class="column">
-        <List on:document={SelectDocument}/>
+        <List />
     </div>
     
 </div>

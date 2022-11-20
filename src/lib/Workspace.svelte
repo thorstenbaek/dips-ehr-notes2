@@ -2,6 +2,7 @@
     import {marked} from 'marked';   
     import { openEHR } from '../openehrStore.ts';            
     import CompositionFactory from '../compositionFactory.ts';
+    import { documents } from '../documentStore.ts';
     import {ParseMarkdown} from '../utils/ParseMarkdown.js';
     import toMarkdown from 'to-markdown';
 
@@ -31,6 +32,8 @@
         await postComposition(headings);
         
         html = null;
+        documents.set(null);
+        //await getDocuments();
     }
 
     async function postComposition(headings)
