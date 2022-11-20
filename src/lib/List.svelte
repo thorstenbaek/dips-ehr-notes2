@@ -1,6 +1,9 @@
 <script>
     import { openEHR } from '../openehrStore.ts';  
-    import {marked} from 'marked';      
+    import {marked} from 'marked';   
+    import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();   
 
     var aql = `
     SELECT
@@ -30,12 +33,12 @@
     }
 
     async function getDocuments() {
-        var data = await $openEHR.query(aql, {});
+        const data = await $openEHR.query(aql, {});
         
-        var sorted = groupBy(data.rows, (r) => r.documentMetadata.documentId);
-        
-        console.log(sorted);
-        return sorted;
+        const grouped = groupBy(data.rows, (r) => r.documentMetadata.documentId);
+        const values = Object.values(grouped);
+
+        return values.sort((b, a) => new Date(a[0].items[1]).getTime() - new Date(b[0].items[1]).getTime());
     }
 
     function formatDate(d) {
@@ -46,19 +49,42 @@
 
 {#await getDocuments()}
     Loading documents.default..
-{:then documents}    
-    {#each Object.values(documents) as document}
-    <h1>
-        Epikrise 
-    </h1>
-        {formatDate(document[0].items[1])}
-        {#each document as heading}
-        <h2>
-            {heading.items[3]}
-        </h2>
-        <p>
-            {@html marked(heading.items[2])}
-        </p>
-        {/each}
+{:then documents}       
+
+    {#each documents as document}
+        <div class="page">
+            <h1>
+                Epikrise 
+            </h1>
+                <span class="metadata">
+                    {formatDate(document[0].items[1])}
+                </span>
+                {#each document as heading}
+                    <h2>
+                        {heading.items[3]}
+                    </h2>
+                    <div>
+                    {@html marked(heading.items[2])}
+                    </div>
+                {/each}
+                <!-- <a href="#" on:click={() => 
+                    dispatch('document', {
+                        document
+                    })}>
+                    More...
+                </a> -->
+        </div>   
     {/each}
 {/await}
+
+<style>
+    .page {
+        background-color: white;
+        padding: 10px;
+        margin: 15px;
+    }
+
+    .metadata {
+        font-size: 0.8em;
+    }
+</style>

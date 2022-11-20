@@ -25,20 +25,28 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
+  margin: 0;  
   min-width: 320px;
   min-height: 100vh;
 }
 
+p {
+  font-size: 0.9em;
+  margin: 0;
+  padding: 1em 0 0.25em 0;
+}
+
 h1 {
-  font-size: 2.2em;
+  font-size: 1.7em;
+  margin: 0;
   padding-top: 2em;
   line-height: 1.1;  
 }
 
 h2 {
   font-size: 1.2em;
+  padding-top: 1em;
+  margin: 0;
   line-height: 1.1;
 }
 
