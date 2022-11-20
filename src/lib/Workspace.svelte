@@ -33,7 +33,10 @@
         
         html = null;
         documents.set(null);
-        //await getDocuments();
+    }
+
+    function close() {
+        html = null;        
     }
 
     async function postComposition(headings)
@@ -56,6 +59,9 @@
     <div class="toolbar">
         <button on:click="{save}">
             Save
+        </button>
+        <button on:click="{close}">
+            Close
         </button>
     </div>
 {:else}

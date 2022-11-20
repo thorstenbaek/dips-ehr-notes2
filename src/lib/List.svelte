@@ -3,9 +3,6 @@
     import { openEHR } from '../openehrStore.ts';  
     import { documents } from '../documentStore.ts';
     import { marked } from 'marked';   
-    import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();   
 
     var aql = `
     SELECT
@@ -72,13 +69,7 @@
                     <div>
                     {@html marked(heading.items[2])}
                     </div>
-                {/each}
-                <!-- <a href="#" on:click={() => 
-                    dispatch('document', {
-                        document
-                    })}>
-                    More...
-                </a> -->
+                {/each}              
         </div>   
     {/each}
 {/if}
