@@ -15,13 +15,9 @@
 	   COMPOSITION c[openEHR-EHR-COMPOSITION.report.v1]
 	      CONTAINS EVALUATION e[openEHR-EHR-EVALUATION.clinical_synopsis.v1]
 	WHERE
-	   -- local::at0006|Funn og undersøkelser|
 	   e/protocol[at0003]/items[openEHR-EHR-CLUSTER.epicrisis_result_metadata_dips.v1]/items[at0001]/value/defining_code/code_string = 'at0006' OR
-	   -- local::at0016|Aktuell problemstilling|
 	   e/protocol[at0003]/items[openEHR-EHR-CLUSTER.epicrisis_result_metadata_dips.v1]/items[at0001]/value/defining_code/code_string = 'at0016' OR
-	   --local::at0007|Vurdering|
 	   e/protocol[at0003]/items[openEHR-EHR-CLUSTER.epicrisis_result_metadata_dips.v1]/items[at0001]/value/defining_code/code_string = 'at0007' OR
-	   --local::at0009|Planer for videre oppfølging|
 	   e/protocol[at0003]/items[openEHR-EHR-CLUSTER.epicrisis_result_metadata_dips.v1]/items[at0001]/value/defining_code/code_string = 'at0009'
 	ORDER BY c/context/start_time/value DESC
     LIMIT 25

@@ -41,7 +41,7 @@
 
     async function postComposition(headings)
     {
-        var concept = "-4027:1003101";
+        var concept = "-4027:1003043";
         await $openEHR.compose(            
             concept,
             new CompositionFactory().getEhrNotesDocument(headings));
